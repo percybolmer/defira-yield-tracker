@@ -1,0 +1,686 @@
+[
+    {
+        "inputs": [],
+        "type": "constructor",
+        "stateMutability": "nonpayable",
+        "payable": false
+    },
+    {
+        "payable": true,
+        "type": "fallback",
+        "stateMutability": "payable"
+    },
+    {
+        "outputs": [
+            {
+                "type": "uint256",
+                "internalType": "uint256",
+                "name": ""
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "inputs": [],
+        "constant": true,
+        "name": "accrualBlockTimestamp",
+        "payable": false
+    },
+    {
+        "type": "function",
+        "inputs": [
+            {
+                "type": "address",
+                "internalType": "address",
+                "name": ""
+            },
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "constant": true,
+        "payable": false,
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "accruedReward",
+        "stateMutability": "view"
+    },
+    {
+        "constant": true,
+        "payable": false,
+        "type": "function",
+        "name": "admin",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "inputs": [],
+        "stateMutability": "view"
+    },
+    {
+        "inputs": [],
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "constant": true,
+        "type": "function",
+        "payable": false,
+        "name": "earlyRedeemPenaltyMantissa"
+    },
+    {
+        "constant": true,
+        "payable": false,
+        "type": "function",
+        "name": "implementation",
+        "outputs": [
+            {
+                "type": "address",
+                "internalType": "address",
+                "name": ""
+            }
+        ],
+        "stateMutability": "view",
+        "inputs": []
+    },
+    {
+        "outputs": [
+            {
+                "type": "uint256",
+                "internalType": "uint256",
+                "name": ""
+            }
+        ],
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "name": "lockDuration",
+        "inputs": [],
+        "type": "function"
+    },
+    {
+        "payable": false,
+        "stateMutability": "view",
+        "name": "lockedSupplies",
+        "type": "function",
+        "outputs": [
+            {
+                "name": "stakedTokenAmount",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "unlockTime",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "constant": true,
+        "inputs": [
+            {
+                "type": "address",
+                "name": "",
+                "internalType": "address"
+            },
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "function",
+        "outputs": [
+            {
+                "internalType": "address",
+                "type": "address",
+                "name": ""
+            }
+        ],
+        "constant": true,
+        "stateMutability": "view",
+        "name": "pendingAdmin",
+        "payable": false,
+        "inputs": []
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "payable": false,
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "type": "function",
+        "name": "pendingImplementation",
+        "stateMutability": "view"
+    },
+    {
+        "stateMutability": "view",
+        "type": "function",
+        "name": "rewardIndex",
+        "payable": false,
+        "outputs": [
+            {
+                "type": "uint256",
+                "internalType": "uint256",
+                "name": ""
+            }
+        ],
+        "constant": true,
+        "inputs": [
+            {
+                "type": "uint256",
+                "internalType": "uint256",
+                "name": ""
+            }
+        ]
+    },
+    {
+        "payable": false,
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "name": "rewardSpeeds",
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "constant": true
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "type": "function",
+        "stateMutability": "view",
+        "name": "rewardTokenAddresses",
+        "payable": false,
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ]
+    },
+    {
+        "name": "rewardTokenCount",
+        "constant": true,
+        "outputs": [
+            {
+                "type": "uint256",
+                "internalType": "uint256",
+                "name": ""
+            }
+        ],
+        "type": "function",
+        "payable": false,
+        "stateMutability": "view",
+        "inputs": []
+    },
+    {
+        "payable": false,
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "name": "slashedTokenAmount",
+        "type": "function",
+        "stateMutability": "view",
+        "constant": true,
+        "inputs": []
+    },
+    {
+        "constant": true,
+        "outputs": [
+            {
+                "internalType": "address",
+                "type": "address",
+                "name": ""
+            }
+        ],
+        "type": "function",
+        "payable": false,
+        "stateMutability": "view",
+        "name": "stakedTokenAddress",
+        "inputs": []
+    },
+    {
+        "payable": false,
+        "type": "function",
+        "outputs": [
+            {
+                "type": "uint256",
+                "internalType": "uint256",
+                "name": ""
+            }
+        ],
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "name": "supplierRewardIndex"
+    },
+    {
+        "name": "supplyAmount",
+        "outputs": [
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "constant": true,
+        "stateMutability": "view",
+        "inputs": [
+            {
+                "name": "",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "type": "function",
+        "payable": false
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "payable": false,
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "name": "totalSupplies"
+    },
+    {
+        "payable": false,
+        "constant": true,
+        "stateMutability": "view",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "",
+                "internalType": "address"
+            }
+        ],
+        "name": "unlockedSupplyAmount",
+        "type": "function",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ]
+    },
+    {
+        "outputs": [],
+        "name": "deposit",
+        "type": "function",
+        "payable": false,
+        "inputs": [
+            {
+                "type": "uint256",
+                "internalType": "uint256",
+                "name": "amount"
+            }
+        ],
+        "constant": false,
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "outputs": [],
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "type": "uint256",
+                "name": "amount"
+            }
+        ],
+        "constant": false,
+        "stateMutability": "nonpayable",
+        "name": "redeem",
+        "payable": false
+    },
+    {
+        "type": "function",
+        "constant": false,
+        "name": "redeemEarly",
+        "inputs": [
+            {
+                "type": "uint256",
+                "internalType": "uint256",
+                "name": "amount"
+            }
+        ],
+        "payable": false,
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "payable": false,
+        "name": "claimRewards",
+        "inputs": [],
+        "type": "function",
+        "constant": false
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "name": "getClaimableRewards",
+        "outputs": [
+            {
+                "type": "uint256",
+                "name": "",
+                "internalType": "uint256"
+            }
+        ],
+        "payable": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            },
+            {
+                "name": "rewardToken",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "constant": true
+    },
+    {
+        "constant": true,
+        "stateMutability": "view",
+        "name": "getLockedSupplies",
+        "inputs": [
+            {
+                "name": "user",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "type": "uint256",
+                        "name": "stakedTokenAmount"
+                    },
+                    {
+                        "name": "unlockTime",
+                        "internalType": "uint256",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct TranquilLockedStakingStorage.LockedSupply[]",
+                "type": "tuple[]",
+                "name": ""
+            }
+        ],
+        "payable": false,
+        "type": "function"
+    },
+    {
+        "type": "function",
+        "name": "getUnlockedBalance",
+        "payable": false,
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user",
+                "type": "address"
+            }
+        ],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "constant": true,
+        "stateMutability": "view"
+    },
+    {
+        "inputs": [
+            {
+                "type": "address",
+                "internalType": "address",
+                "name": "user"
+            }
+        ],
+        "constant": true,
+        "name": "getLockedBalance",
+        "type": "function",
+        "payable": false,
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint256",
+                "internalType": "uint256",
+                "name": ""
+            }
+        ]
+    },
+    {
+        "outputs": [],
+        "constant": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "name": "setRewardTokenCount",
+        "payable": false,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "newRewardTokenCount",
+                "type": "uint256"
+            }
+        ]
+    },
+    {
+        "name": "setLockDuration",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "payable": false,
+        "constant": false,
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "newLockDuration",
+                "type": "uint256"
+            }
+        ],
+        "type": "function"
+    },
+    {
+        "payable": false,
+        "constant": false,
+        "outputs": [],
+        "inputs": [
+            {
+                "name": "rewardToken",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "name": "speed",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "type": "function",
+        "name": "setRewardSpeed",
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "type": "uint256",
+                "name": "rewardToken"
+            },
+            {
+                "internalType": "address",
+                "type": "address",
+                "name": "rewardTokenAddress"
+            }
+        ],
+        "outputs": [],
+        "constant": false,
+        "name": "setRewardTokenAddress"
+    },
+    {
+        "inputs": [
+            {
+                "type": "address",
+                "internalType": "address",
+                "name": "newStakedTokenAddress"
+            }
+        ],
+        "payable": false,
+        "name": "setStakedTokenAddress",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "constant": false
+    },
+    {
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "newEarlyRedeemPenaltyMantissa",
+                "internalType": "uint256"
+            }
+        ],
+        "type": "function",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "constant": false,
+        "name": "setEarlyRedeemPenalty",
+        "payable": false
+    },
+    {
+        "constant": false,
+        "name": "becomeImplementation",
+        "payable": false,
+        "inputs": [
+            {
+                "internalType": "contract TranquilStakingProxy",
+                "name": "proxy",
+                "type": "address"
+            }
+        ],
+        "type": "function",
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "outputs": [],
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "type": "uint256",
+                "name": "amount"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "constant": false,
+        "name": "withdrawSlashedTokens",
+        "payable": false,
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "type": "address",
+                "name": "tokenAddress",
+                "internalType": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "outputs": [],
+        "payable": false,
+        "type": "function",
+        "stateMutability": "nonpayable",
+        "constant": false,
+        "name": "emergencyWithdraw"
+    },
+    {
+        "inputs": [
+            {
+                "type": "uint256",
+                "name": "amount",
+                "internalType": "uint256"
+            }
+        ],
+        "type": "function",
+        "payable": false,
+        "name": "emergencyWithdrawNative",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "constant": false
+    }
+]

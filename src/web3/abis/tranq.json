@@ -1,0 +1,590 @@
+[
+    {
+        "type": "constructor",
+        "stateMutability": "nonpayable",
+        "payable": false,
+        "inputs": [
+            {
+                "name": "account",
+                "type": "address",
+                "internalType": "address"
+            }
+        ]
+    },
+    {
+        "name": "Approval",
+        "anonymous": false,
+        "type": "event",
+        "inputs": [
+            {
+                "internalType": "address",
+                "indexed": true,
+                "name": "owner",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "type": "address",
+                "indexed": true,
+                "name": "spender"
+            },
+            {
+                "name": "amount",
+                "indexed": false,
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ]
+    },
+    {
+        "type": "event",
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "delegator",
+                "type": "address",
+                "indexed": true
+            },
+            {
+                "indexed": true,
+                "type": "address",
+                "name": "fromDelegate",
+                "internalType": "address"
+            },
+            {
+                "name": "toDelegate",
+                "internalType": "address",
+                "type": "address",
+                "indexed": true
+            }
+        ],
+        "name": "DelegateChanged",
+        "anonymous": false
+    },
+    {
+        "anonymous": false,
+        "name": "DelegateVotesChanged",
+        "inputs": [
+            {
+                "type": "address",
+                "internalType": "address",
+                "name": "delegate",
+                "indexed": true
+            },
+            {
+                "type": "uint256",
+                "indexed": false,
+                "name": "previousBalance",
+                "internalType": "uint256"
+            },
+            {
+                "name": "newBalance",
+                "indexed": false,
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "type": "event"
+    },
+    {
+        "name": "Transfer",
+        "anonymous": false,
+        "type": "event",
+        "inputs": [
+            {
+                "name": "from",
+                "internalType": "address",
+                "indexed": true,
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "type": "address",
+                "internalType": "address",
+                "name": "to"
+            },
+            {
+                "name": "amount",
+                "internalType": "uint256",
+                "type": "uint256",
+                "indexed": false
+            }
+        ]
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "inputs": [],
+        "stateMutability": "view",
+        "payable": false,
+        "type": "function",
+        "constant": true,
+        "name": "DELEGATION_TYPEHASH"
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "payable": false,
+        "constant": true,
+        "inputs": [],
+        "type": "function",
+        "name": "DOMAIN_TYPEHASH",
+        "stateMutability": "view"
+    },
+    {
+        "name": "PERMIT_TYPEHASH",
+        "constant": true,
+        "stateMutability": "view",
+        "payable": false,
+        "inputs": [],
+        "type": "function",
+        "outputs": [
+            {
+                "type": "bytes32",
+                "internalType": "bytes32",
+                "name": ""
+            }
+        ]
+    },
+    {
+        "payable": false,
+        "constant": true,
+        "name": "checkpoints",
+        "outputs": [
+            {
+                "name": "fromBlock",
+                "type": "uint32",
+                "internalType": "uint32"
+            },
+            {
+                "type": "uint96",
+                "internalType": "uint96",
+                "name": "votes"
+            }
+        ],
+        "type": "function",
+        "inputs": [
+            {
+                "name": "",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "type": "uint32",
+                "name": "",
+                "internalType": "uint32"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "inputs": [],
+        "name": "decimals",
+        "constant": true,
+        "type": "function",
+        "stateMutability": "view",
+        "payable": false,
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint8",
+                "internalType": "uint8"
+            }
+        ]
+    },
+    {
+        "stateMutability": "view",
+        "name": "delegates",
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "type": "function",
+        "payable": false,
+        "constant": true,
+        "inputs": [
+            {
+                "type": "address",
+                "internalType": "address",
+                "name": ""
+            }
+        ]
+    },
+    {
+        "payable": false,
+        "stateMutability": "view",
+        "name": "name",
+        "constant": true,
+        "outputs": [
+            {
+                "type": "string",
+                "name": "",
+                "internalType": "string"
+            }
+        ],
+        "inputs": [],
+        "type": "function"
+    },
+    {
+        "type": "function",
+        "stateMutability": "view",
+        "name": "nonces",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "constant": true,
+        "payable": false,
+        "inputs": [
+            {
+                "type": "address",
+                "internalType": "address",
+                "name": ""
+            }
+        ]
+    },
+    {
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "type": "uint32",
+                "name": "",
+                "internalType": "uint32"
+            }
+        ],
+        "payable": false,
+        "type": "function",
+        "constant": true,
+        "name": "numCheckpoints",
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ]
+    },
+    {
+        "inputs": [],
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "name": "symbol",
+        "constant": true,
+        "type": "function",
+        "payable": false
+    },
+    {
+        "outputs": [
+            {
+                "name": "",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "name": "totalSupply",
+        "stateMutability": "view",
+        "inputs": [],
+        "payable": false,
+        "constant": true,
+        "type": "function"
+    },
+    {
+        "stateMutability": "view",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "constant": true,
+        "payable": false,
+        "name": "allowance",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "account",
+                "internalType": "address"
+            },
+            {
+                "internalType": "address",
+                "type": "address",
+                "name": "spender"
+            }
+        ],
+        "type": "function"
+    },
+    {
+        "stateMutability": "nonpayable",
+        "payable": false,
+        "type": "function",
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "spender",
+                "type": "address"
+            },
+            {
+                "name": "rawAmount",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "name": "approve",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "constant": false
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+            },
+            {
+                "name": "spender",
+                "internalType": "address",
+                "type": "address"
+            },
+            {
+                "type": "uint256",
+                "name": "rawAmount",
+                "internalType": "uint256"
+            },
+            {
+                "type": "uint256",
+                "internalType": "uint256",
+                "name": "deadline"
+            },
+            {
+                "type": "uint8",
+                "name": "v",
+                "internalType": "uint8"
+            },
+            {
+                "type": "bytes32",
+                "name": "r",
+                "internalType": "bytes32"
+            },
+            {
+                "name": "s",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            }
+        ],
+        "payable": false,
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "constant": false,
+        "type": "function",
+        "name": "permit"
+    },
+    {
+        "name": "balanceOf",
+        "payable": false,
+        "type": "function",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "inputs": [
+            {
+                "name": "account",
+                "internalType": "address",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "constant": true
+    },
+    {
+        "constant": false,
+        "stateMutability": "nonpayable",
+        "outputs": [
+            {
+                "type": "bool",
+                "internalType": "bool",
+                "name": ""
+            }
+        ],
+        "name": "transfer",
+        "inputs": [
+            {
+                "type": "address",
+                "internalType": "address",
+                "name": "dst"
+            },
+            {
+                "name": "rawAmount",
+                "internalType": "uint256",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "type": "function"
+    },
+    {
+        "payable": false,
+        "constant": false,
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool",
+                "internalType": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "inputs": [
+            {
+                "type": "address",
+                "internalType": "address",
+                "name": "src"
+            },
+            {
+                "internalType": "address",
+                "name": "dst",
+                "type": "address"
+            },
+            {
+                "name": "rawAmount",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "name": "transferFrom",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "name": "delegate",
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "delegatee",
+                "type": "address"
+            }
+        ],
+        "type": "function",
+        "outputs": []
+    },
+    {
+        "payable": false,
+        "inputs": [
+            {
+                "type": "address",
+                "name": "delegatee",
+                "internalType": "address"
+            },
+            {
+                "name": "nonce",
+                "internalType": "uint256",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "expiry",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint8",
+                "name": "v",
+                "type": "uint8"
+            },
+            {
+                "name": "r",
+                "type": "bytes32",
+                "internalType": "bytes32"
+            },
+            {
+                "type": "bytes32",
+                "name": "s",
+                "internalType": "bytes32"
+            }
+        ],
+        "name": "delegateBySig",
+        "stateMutability": "nonpayable",
+        "outputs": [],
+        "type": "function",
+        "constant": false
+    },
+    {
+        "payable": false,
+        "constant": true,
+        "inputs": [
+            {
+                "internalType": "address",
+                "type": "address",
+                "name": "account"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint96",
+                "internalType": "uint96"
+            }
+        ],
+        "type": "function",
+        "name": "getCurrentVotes",
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "payable": false,
+        "name": "getPriorVotes",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint96",
+                "internalType": "uint96"
+            }
+        ],
+        "constant": true,
+        "stateMutability": "view",
+        "inputs": [
+            {
+                "type": "address",
+                "name": "account",
+                "internalType": "address"
+            },
+            {
+                "type": "uint256",
+                "name": "blockNumber",
+                "internalType": "uint256"
+            }
+        ]
+    }
+]
