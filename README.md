@@ -1,3 +1,12 @@
+# Defira Yield Tracker
+This is a tooling under development that will aim to track any yields from Defira
+
+This is under massive development and not to be trusted to give any exact numbers for now
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
