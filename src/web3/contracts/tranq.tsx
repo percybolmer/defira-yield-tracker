@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 
 
 const TranqAddress = "0xCf1709Ad76A79d5a60210F23e81cE2460542A836";
-const tranqABI = require("./abis/tranq.json");
+const tranqABI = require("../abis/tranq.json");
 
 class Tranq {
 

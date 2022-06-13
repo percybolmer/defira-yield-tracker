@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { Contract } from "./contract";
-import Tranq from "./tranq";
+import Tranq from "./contracts/tranq";
 import LockedTranq from "./contracts/locked_tranq";
 
 /**

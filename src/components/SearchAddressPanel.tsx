@@ -4,11 +4,12 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import Box from "@mui/material/Box";
 import InputAdornment from '@mui/material/InputAdornment';
 
-import { useState, ChangeEvent } from 'react';
+import { useState, useContext, ChangeEvent } from 'react';
 import { ethers } from "ethers";
-import HarmonyClient from "../web3/harmony";
 import TranqIcon from '../icons/tranq.svg';
 import LockIcon from '../icons/lock.svg';
+
+import { WalletContext } from '../context/WalletContext';
 
 import './SearchAddressPanel.css';
 
@@ -20,6 +21,8 @@ function SearchAddressPanel() {
   // TODO make a WalletContext instead and store these there
   const [tranq, setTranq] = useState('');
   const [lockedTranq, setLockedTranq] = useState('');
+
+  const wallet = useContext(WalletContext);
 
   /**
    * handleAddressChange is used to verify that its a legit addr and and
@@ -41,11 +44,9 @@ function SearchAddressPanel() {
    */
   const searchWallet = async () => {
 
-    // TODO Convert HC into a Context, so we are not confined into a certain local one
-    const hc = new HarmonyClient(address);
     // TODO make a array of all token names, export it from somewhere, and run through them in a loop
-    hc.balanceOf("tranq", address, setTranq);
-    hc.balanceOf("locked_tranq", address, setLockedTranq);
+    wallet?.HarmonyClient.balanceOf("tranq", address, setTranq);
+    wallet?.HarmonyClient.balanceOf("locked_tranq", address, setLockedTranq);
 
   }
 
