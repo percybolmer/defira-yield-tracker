@@ -4,7 +4,7 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import Box from "@mui/material/Box";
 import InputAdornment from '@mui/material/InputAdornment';
 
-import { useState, useContext, ChangeEvent } from 'react';
+import { useState,useEffect, useContext, ChangeEvent } from 'react';
 import { ethers } from "ethers";
 import TranqIcon from '../icons/tranq.svg';
 import LockIcon from '../icons/lock.svg';
@@ -15,14 +15,22 @@ import './SearchAddressPanel.css';
 
 
 function SearchAddressPanel() {
-  const [address, setAddress] = useState('');
+
+  let wallet = useContext(WalletContext);
+  /**
+   * States used by the SearchPanel
+   */
+  const [address, setAddress] = useState(wallet?.Address);
   const [validAddress, setInvalidAddress] = useState(true);
 
-  // TODO make a WalletContext instead and store these there
-  const [tranq, setTranq] = useState('');
-  const [lockedTranq, setLockedTranq] = useState('');
-
-  const wallet = useContext(WalletContext);
+  useEffect(() => {
+    // Validate the address
+    if (address !== undefined && !ethers.utils.isAddress(address)) {
+      setInvalidAddress(true);
+    } else {
+      setInvalidAddress(false);
+    }
+  }, [address]);
 
   /**
    * handleAddressChange is used to verify that its a legit addr and and
@@ -30,24 +38,16 @@ function SearchAddressPanel() {
    * @param event 
    */
   const handleAddressChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!ethers.utils.isAddress(event.target.value)) {
-      setInvalidAddress(true);
-    } else {
-      setInvalidAddress(false);
-    }
     setAddress(event.target.value);
-
   };
   /**
-   * searchWallet is used to search for the given address
-   * TODO make it so we populate a wallet instead (WalletContext) which we can display instead of textfields
+   * searchWallet is used to search for the given address and update set wallet
    */
   const searchWallet = async () => {
-
-    // TODO make a array of all token names, export it from somewhere, and run through them in a loop
-    wallet?.HarmonyClient.balanceOf("tranq", address, setTranq);
-    wallet?.HarmonyClient.balanceOf("locked_tranq", address, setLockedTranq);
-
+    if (address !== undefined) {
+      wallet?.SetAddress(address);
+      wallet?.UpdateBalance();
+    }
   }
 
 
@@ -87,7 +87,7 @@ function SearchAddressPanel() {
           id="outlined-search"
           label="Tranq Amount"
           disabled={true}
-          value={tranq}
+          value={wallet?.TranqBalance}
           color="warning"
           InputProps={{
             startAdornment: (
@@ -102,7 +102,7 @@ function SearchAddressPanel() {
         id="outlined-search"
         label="Locked Tranq"
         disabled={true}
-        value={lockedTranq}
+        value={wallet?.LockedTranqBalance}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

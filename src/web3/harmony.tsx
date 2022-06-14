@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { Contract } from "./contract";
 import Tranq from "./contracts/tranq";
 import LockedTranq from "./contracts/locked_tranq";
-
+import { ContractNames } from "./contract";
 /**
  * SetStateCallback can be used by useState etc as callbacks
  */
@@ -10,8 +10,10 @@ import LockedTranq from "./contracts/locked_tranq";
     (value:any): void;
 }
 
+/**
+ * HarmonyClient is used to access the Harmony Blockchain
+ */
 class HarmonyClient {
-    public address: string;
     private provider: ethers.providers.Provider;
 
     /**
@@ -21,13 +23,15 @@ class HarmonyClient {
      */
     private contracts = new Map<string, Contract>();
 
-    public constructor(address: string){
-        this.address = address;
-
+    /**
+     * constructor will handle setting up everything needed to communicate with the Network
+     * and load all Defira Contracts so they are ready
+     */
+    public constructor(){
         this.connectNetwork();
         this.provider = new ethers.providers.JsonRpcProvider("https://api.s0.t.hmny.io");
-   
         this.loadContracts();
+
     }
     /**
      * loadContracts will load all the abis and set up contracts
@@ -39,8 +43,8 @@ class HarmonyClient {
         // This is because it can differ on how to extract data from them and I want to make it abstract
         // At first I made a generic function that loaded the contracts, but we cannot call getBalance on them since not all contracts
         // has that, instead I made a custom interface that enables lower level control
-        this.contracts.set("tranq", new Tranq(this.provider))
-        this.contracts.set("locked_tranq", new LockedTranq(this.provider));
+        this.contracts.set(ContractNames.Tranq, new Tranq(this.provider))
+        this.contracts.set(ContractNames.LockedTranq, new LockedTranq(this.provider));
     }
     /**
      * connectNetwork will connect to harmony
@@ -55,15 +59,14 @@ class HarmonyClient {
      * @param wallet - the address to lookup
      * @param callback - the function to apply the value on, usually a setState()
      */
-    public async balanceOf(token:string, wallet:string, callback:SetStateCallback){
+    public balanceOf(token:ContractNames, wallet:string, callback:SetStateCallback){
         if (this.contracts && this.contracts.has(token)){
             let contract = this.contracts.get(token);
             // Note this is the typescript interface balanceOf function, not the smartcontract
-            let balance = await contract?.balanceOf(wallet);
-            return callback(balance);
+            return contract?.balanceOf(wallet, callback);
+
         }
         return callback('');
-        
     }
 }
 
