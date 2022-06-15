@@ -1,17 +1,23 @@
-import {createContext, useEffect, useState} from "react";
+import { createContext, useEffect, useState } from "react";
 import HarmonyClient from "../web3/harmony";
 import { ContractNames } from "../web3/contract";
 /**
  * WalletInterface defines the interface needed to fulfill to be a wallet
  */
 export interface WalletInterface {
-    Address:string
-    TranqBalance:string
-    LockedTranqBalance:string
+    /**
+     * Address related to the Wallet
+     */
+    Address: string
+    /**
+     * Balance fields inside the Wallet
+     */
+    TranqBalance: string
+    LockedTranqBalance: string
     /**
      * Web3 Functions for loading WalletBalance
      */
-    SetAddress(address:string):void
+    SetAddress(address: string): void
     UpdateBalance(): void
 
 }
@@ -41,7 +47,7 @@ export const WalletProvider = ({ children, client, wallet }: WalletProps) => {
      * SetAddress will update the address related to the wallet and the localstorage
      * @param address is the wallet
      */
-    const SetAddress = (address:string) => {
+    const SetAddress = (address: string) => {
         localStorage.setItem("selected_wallet", address);
         setAddress(address);
     };
@@ -54,29 +60,29 @@ export const WalletProvider = ({ children, client, wallet }: WalletProps) => {
         }
     }, [Address])
 
-     /**
-      * UpdateBalance will load balance for all tokens and set them
-      */
+    /**
+     * UpdateBalance will load balance for all tokens and set them
+     */
     const UpdateBalance = () => {
-        client?.balanceOf(ContractNames.Tranq, Address, (balance:string) => {setTranqBalance(balance);})
-        client?.balanceOf(ContractNames.LockedTranq, Address, (balance:string) => {setLockedTranqBalance(balance);})
+        client?.balanceOf(ContractNames.Tranq, Address, (balance: string) => { setTranqBalance(balance); })
+        client?.balanceOf(ContractNames.LockedTranq, Address, (balance: string) => { setLockedTranqBalance(balance); })
     }
-  
+
     return (
-      <WalletContext.Provider
-        value={{
-            Address: Address,
-            TranqBalance: TranqBalance,
-            LockedTranqBalance: LockedTranqBalance,
-            SetAddress: SetAddress,
-            UpdateBalance: UpdateBalance,
-        }}
-      >
-        {children} 
-      </WalletContext.Provider>
+        <WalletContext.Provider
+            value={{
+                Address: Address,
+                TranqBalance: TranqBalance,
+                LockedTranqBalance: LockedTranqBalance,
+                SetAddress: SetAddress,
+                UpdateBalance: UpdateBalance,
+            }}
+        >
+            {children}
+        </WalletContext.Provider>
     );
 }
 
 
 
-  
+
