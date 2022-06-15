@@ -2,21 +2,16 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import Box from "@mui/material/Box";
-import InputAdornment from '@mui/material/InputAdornment';
 
 import { useState,useEffect, useContext, ChangeEvent } from 'react';
 import { ethers } from "ethers";
-import TranqIcon from '../icons/tranq.svg';
-import LockIcon from '../icons/lock.svg';
 
 import { WalletContext } from '../context/WalletContext';
-
-import './SearchAddressPanel.css';
 
 
 function SearchAddressPanel() {
 
-  let wallet = useContext(WalletContext);
+  const wallet = useContext(WalletContext);
   /**
    * States used by the SearchPanel
    */
@@ -43,10 +38,9 @@ function SearchAddressPanel() {
   /**
    * searchWallet is used to search for the given address and update set wallet
    */
-  const searchWallet = async () => {
+  const searchWallet = () => {
     if (address !== undefined) {
       wallet?.SetAddress(address);
-      wallet?.UpdateBalance();
     }
   }
 
@@ -80,38 +74,6 @@ function SearchAddressPanel() {
           Search
         </Button>
       </Box>
-      <Box sx={{ m: "2rem" }}>
-        
-
-        <TextField
-          id="outlined-search"
-          label="Tranq Amount"
-          disabled={true}
-          value={wallet?.TranqBalance}
-          color="warning"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <img src={TranqIcon} alt="Tranq" width={25} height={25}/>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Box>
-      <TextField
-        id="outlined-search"
-        label="Locked Tranq"
-        disabled={true}
-        value={wallet?.LockedTranqBalance}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <img src={TranqIcon} alt="Tranq" width={25} height={25}/>
-              <img src={LockIcon} alt="Lock" width={20} height={20} className="LockIcon"/>
-            </InputAdornment>
-          ),
-        }}
-      />
     </Box>
   )
 }

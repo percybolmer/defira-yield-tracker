@@ -28,6 +28,7 @@ class HarmonyClient {
      * and load all Defira Contracts so they are ready
      */
     public constructor(){
+        console.log("Constructor Initiated");
         this.connectNetwork();
         this.provider = new ethers.providers.JsonRpcProvider("https://api.s0.t.hmny.io");
         this.loadContracts();
