@@ -39,6 +39,16 @@ class LockedTranq {
 
         this.decimals = 18;
 
+        // Build up an mapping of rewrads by fetching their ADDR and matching it to addr 
+        // TODO
+        // Begin by fetching token count, then Read all Addresses related to it
+        // Map them against an ENUM and then Use that Mapping to fetch from all Indexes
+        let tokensRewarded = this.contract.rewardTokenAddresses(7).then((data:any) => {
+            console.log("REWARDTOKENADDRESSES: ", data);
+        });
+        let tokensCOUNT = this.contract.rewardTokenCount().then((data:BigNumber) => {
+            console.log("TOKEN COUNT: ", data.toNumber());
+        });
 
     }
 
@@ -87,11 +97,21 @@ class LockedTranq {
      */
          public getClaimableRewards(wallet: string, callback: SetStateCallback): void {
             let decimals = this.decimals;
+
+            
             this.contract.getClaimableRewards(wallet, Rewards.REWARD_ONE).then((data: BigNumber) => {
                 console.log("Pending ONE Reward: ", ethers.utils.formatUnits(data, 18));
             })
             this.contract.getClaimableRewards(wallet, Rewards.REWARD_TRANQ).then((data: BigNumber) => {
                 console.log("Pending TRANQ Reward: ", ethers.utils.formatUnits(data, 18));
+            })
+
+            this.contract.getClaimableRewards(wallet, 6).then((data: BigNumber) => {
+                console.log("Pending Stone Reward: ", ethers.utils.formatUnits(data, 18));
+            })
+
+            this.contract.getClaimableRewards(wallet, 7).then((data: BigNumber) => {
+                console.log("Pending FIRA Reward: ", ethers.utils.formatUnits(data, 18));
             })
         }
     
