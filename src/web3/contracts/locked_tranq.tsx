@@ -1,8 +1,9 @@
 import { BigNumber, ethers } from "ethers";
 import { SetStateCallback } from "../harmony";
+import { ContractAddresses, AddressToName } from "../contract";
 
 // locked_tranq uses a Proxy, so use the proxy ADR, but the ABI from the underlying contract
-const Address = "0x55aE07Bb8Bae1501F9aEBF35801B5699eAE63bb7";
+const Address = ContractAddresses.LockedTranq;
 const ABI = require("../abis/lockedTranq.json");
 
 
@@ -28,28 +29,48 @@ type LockedSupply = {
     unlockTime: BigNumber
 }
 
+class LockedTranqReward {
+    public contractAddress: string;
+    public contractName: string;
+    public rewardIndex: Number;
+
+    public constructor(contractAddress: string, contractName: string, rewardIndex: Number) {
+        this.contractAddress = contractAddress;
+        this.contractName = contractName;
+        this.rewardIndex = rewardIndex;
+    }
+}
+
 class LockedTranq {
 
     public contract: ethers.Contract;
     public decimals: ethers.BigNumberish;
 
+    public contractRewards: Map<string, LockedTranqReward>;
+
 
     public constructor(provider: ethers.providers.Provider) {
         this.contract = new ethers.Contract(Address, ABI, provider);
-
+        this.contractRewards = new Map<string,LockedTranqReward>();
         this.decimals = 18;
 
-        // Build up an mapping of rewrads by fetching their ADDR and matching it to addr 
-        // TODO
-        // Begin by fetching token count, then Read all Addresses related to it
-        // Map them against an ENUM and then Use that Mapping to fetch from all Indexes
-        let tokensRewarded = this.contract.rewardTokenAddresses(7).then((data:any) => {
-            console.log("REWARDTOKENADDRESSES: ", data);
+        // Fetch Token Count, this return an Number of the amount of contracts that rewards
+        this.contract.rewardTokenCount().then((data:BigNumber) => {
+            // Now itterate all these indexes and fetch their Addr
+            for (let i = 0; i <= data.toNumber(); i++) {
+                // RewardTokenAddress returns the Address that is related to the reward
+                this.contract.rewardTokenAddresses(i).then((rewardData:string) => {
+                    // Fetch rewards for this token
+                    console.log("REWARDTOKENADDRESSES (",i,")", rewardData);
+                    console.log("TOKEN ", AddressToName(rewardData))
+                        this.contractRewards.set(rewardData, new LockedTranqReward(rewardData, AddressToName(rewardData), i));
+                });
+            }
+            console.log(this.contractRewards)
+        }).catch((error: Error) =>{
+            // todo make fancy popup
+            console.error(error);
         });
-        let tokensCOUNT = this.contract.rewardTokenCount().then((data:BigNumber) => {
-            console.log("TOKEN COUNT: ", data.toNumber());
-        });
-
     }
 
     /**
@@ -98,7 +119,8 @@ class LockedTranq {
          public getClaimableRewards(wallet: string, callback: SetStateCallback): void {
             let decimals = this.decimals;
 
-            
+            console.log(this.contractRewards);
+            //
             this.contract.getClaimableRewards(wallet, Rewards.REWARD_ONE).then((data: BigNumber) => {
                 console.log("Pending ONE Reward: ", ethers.utils.formatUnits(data, 18));
             })
