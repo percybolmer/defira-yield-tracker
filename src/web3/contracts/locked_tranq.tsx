@@ -1,5 +1,5 @@
 import { BigNumber, ethers } from "ethers";
-import { SetStateCallback } from "../harmony";
+import { SetStateCallback, ZeroAddress } from "../harmony";
 import { ContractAddresses, AddressToName } from "../contract";
 
 // locked_tranq uses a Proxy, so use the proxy ADR, but the ABI from the underlying contract
@@ -55,22 +55,26 @@ class LockedTranq {
         this.decimals = 18;
 
         // Fetch Token Count, this return an Number of the amount of contracts that rewards
-        this.contract.rewardTokenCount().then((data:BigNumber) => {
-            // Now itterate all these indexes and fetch their Addr
-            for (let i = 0; i <= data.toNumber(); i++) {
-                // RewardTokenAddress returns the Address that is related to the reward
-                this.contract.rewardTokenAddresses(i).then((rewardData:string) => {
-                    // Fetch rewards for this token
-                    console.log("REWARDTOKENADDRESSES (",i,")", rewardData);
-                    console.log("TOKEN ", AddressToName(rewardData))
-                        this.contractRewards.set(rewardData, new LockedTranqReward(rewardData, AddressToName(rewardData), i));
-                });
-            }
-            console.log(this.contractRewards)
-        }).catch((error: Error) =>{
-            // todo make fancy popup
-            console.error(error);
-        });
+        this.Setup();
+    }
+    /**
+     * Setup is an async function because we require many updates here and we want the UI to await this to be fully loaded before proceeding
+     */
+    Setup = async () => {
+        try {
+            let amountOfTokens = await this.contract.rewardTokenCount();
+            for (let i = 0; i<= amountOfTokens.toNumber(); i++) {
+                let rewardAddress = await this.contract.rewardTokenAddresses(i);
+                if (rewardAddress === ZeroAddress) {
+                    // This maybe is updated rewards that are removed? Skip them, 2 occurs atm
+                    return
+                }
+                let contractName = AddressToName(rewardAddress);
+                this.contractRewards.set(rewardAddress, new LockedTranqReward(rewardAddress, contractName, i));
+            }   
+        }catch(error) {
+          console.log(error); // TODO fix this with popup     
+        } 
     }
 
     /**
@@ -80,10 +84,12 @@ class LockedTranq {
      */
     public balanceOf(wallet: string, callback: SetStateCallback): void {
         let decimals = this.decimals;
+        console.log("getting balanceof");
         this.contract.supplyAmount(wallet).then((balance: string) => {
             callback(ethers.utils.formatUnits(balance, decimals));
+        }).catch((error:Error) => {
+            console.error(error);
         })
-
         this.getClaimableRewards(wallet, callback);
     }
     /**
@@ -95,6 +101,8 @@ class LockedTranq {
         let decimals = this.decimals;
         this.contract.getUnlockedBalance(wallet).then((balance: string) => {
             callback(ethers.utils.formatUnits(balance, decimals));
+        }).catch((error:Error) => {
+            console.error(error);
         })
     }
 
@@ -108,6 +116,8 @@ class LockedTranq {
         this.contract.getLockedSupplies(wallet).then((data: Array<LockedSupply>) => {
             console.log(ethers.utils.formatUnits(data[0].stakedTokenAmount, decimals));
             console.log(new Date(data[0].unlockTime.toNumber()*1000));
+        }).catch((error:Error) => {
+            console.error(error);
         })
     }
 
@@ -118,23 +128,19 @@ class LockedTranq {
      */
          public getClaimableRewards(wallet: string, callback: SetStateCallback): void {
             let decimals = this.decimals;
-
-            console.log(this.contractRewards);
-            //
-            this.contract.getClaimableRewards(wallet, Rewards.REWARD_ONE).then((data: BigNumber) => {
-                console.log("Pending ONE Reward: ", ethers.utils.formatUnits(data, 18));
-            })
-            this.contract.getClaimableRewards(wallet, Rewards.REWARD_TRANQ).then((data: BigNumber) => {
-                console.log("Pending TRANQ Reward: ", ethers.utils.formatUnits(data, 18));
-            })
-
-            this.contract.getClaimableRewards(wallet, 6).then((data: BigNumber) => {
-                console.log("Pending Stone Reward: ", ethers.utils.formatUnits(data, 18));
-            })
-
-            this.contract.getClaimableRewards(wallet, 7).then((data: BigNumber) => {
-                console.log("Pending FIRA Reward: ", ethers.utils.formatUnits(data, 18));
-            })
+            console.log("rewards map : ", this.contractRewards);
+            for (let value of this.contractRewards.values()) {
+                console.log(value);                 //37 35 40
+            }
+            for (const [key, reward] of Object.entries(this.contractRewards)) { 
+                console.log("inside");
+                this.contract.getClaimableRewards(wallet, reward.rewardIndex).then((data: BigNumber) => {
+                    console.log("Pending ", reward.contractName, " : ", ethers.utils.formatUnits(data, 18));
+                }).catch((error:Error) => {
+                    console.error(error);
+                })
+            }
+            
         }
     
 

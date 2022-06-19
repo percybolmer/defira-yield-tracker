@@ -14,7 +14,6 @@ const root = ReactDOM.createRoot(
  */
 const client = new HarmonyClient();
 
-
 root.render(
   <React.StrictMode>
     <WalletProvider client={client} wallet={localStorage.getItem("selected_wallet") || ""}>

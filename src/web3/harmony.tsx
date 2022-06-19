@@ -10,6 +10,8 @@ import { ContractNames } from "./contract";
     (value:any): void;
 }
 
+export const ZeroAddress:string = "0x0000000000000000000000000000000000000000";
+
 /**
  * HarmonyClient is used to access the Harmony Blockchain
  */
@@ -61,10 +63,18 @@ class HarmonyClient {
      * @param callback - the function to apply the value on, usually a setState()
      */
     public balanceOf(token:ContractNames, wallet:string, callback:SetStateCallback){
+        //debugger;
+
+
         if (this.contracts && this.contracts.has(token)){
             let contract = this.contracts.get(token);
             // Note this is the typescript interface balanceOf function, not the smartcontract
-            return contract?.balanceOf(wallet, callback);
+            try {
+                contract?.balanceOf(wallet, callback);
+            }catch(error) {
+                console.error(error);
+            }
+            return 
 
         }
         return callback('');

@@ -17,6 +17,8 @@ class Tranq {
 
         this.contract.decimals().then((decimals:ethers.BigNumberish) => {
             this.decimals = decimals;
+        }).catch((error:Error) => {
+            console.error(error);
         })
     }
     /**
@@ -28,6 +30,8 @@ class Tranq {
         let decimals = this.decimals
         this.contract.balanceOf(wallet).then((balance:string) => {
             callback(ethers.utils.formatUnits(balance, decimals));
+        }).catch((error:Error) => {
+            console.error(error);
         })
         
     }

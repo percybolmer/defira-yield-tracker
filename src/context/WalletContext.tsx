@@ -49,12 +49,15 @@ export const WalletProvider = ({ children, client, wallet }: WalletProps) => {
      */
     const SetAddress = (address: string) => {
         localStorage.setItem("selected_wallet", address);
+        console.log("updating wallet");
         setAddress(address);
+        console.log("should have triggered");
     };
     /**
      * useEffect that triggers a reload on the Wallet incase addr changes
      */
     useEffect(() => {
+        console.log("update balance hook triggered");
         if (Address !== '') {
             UpdateBalance();
         }
@@ -63,9 +66,14 @@ export const WalletProvider = ({ children, client, wallet }: WalletProps) => {
     /**
      * UpdateBalance will load balance for all tokens and set them
      */
-    const UpdateBalance = () => {
-        client?.balanceOf(ContractNames.Tranq, Address, (balance: string) => { setTranqBalance(balance); })
-        client?.balanceOf(ContractNames.LockedTranq, Address, (balance: string) => { setLockedTranqBalance(balance); })
+    const UpdateBalance = async () => {
+        try {
+            client?.balanceOf(ContractNames.Tranq, Address, (balance: string) => { setTranqBalance(balance); })
+            client?.balanceOf(ContractNames.LockedTranq, Address, (balance: string) => { setLockedTranqBalance(balance); })
+        }catch(error){
+            console.error(error);
+        }
+
     }
 
     return (
